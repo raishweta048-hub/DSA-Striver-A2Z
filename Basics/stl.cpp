@@ -1,6 +1,9 @@
+//Date:17 Jan 2026
 //standard template library.cpp
 //Covers algorithms,Containers,Funnction,Iterators in STL
-//Date:17 Jan 2026
+
+//Date:21 Jan 2026
+//Covers Stacks,Queue,PriorityQueue ,Sets
 
 #include<iostream>//All libraries are automatically included if #include <bits/stdc++.h> is used.
 #include<utility>
@@ -117,3 +120,144 @@ int main(){
         //rest functons same as vector
         //begin , end , rbegin , rend, clear , insert , size , swap
     }
+
+    void explainDequeue(){
+
+        deque<int>dq;
+        dq.push_back(1); //{1}
+        dq.emplace_back(2); //{1,2}
+        dq.push_front(4); //{4,1,2}
+        dq.emplace_front(3); //{3,4,1,2}
+
+        dq.pop_back(); //{3,4,1}
+        dq.pop_front(); //{4,1}
+
+        dq.back();
+
+
+        dq.front();
+
+        //rest functiion are same as vector
+        //begin,end,regin,rend,clear,insert,size,swap
+    }
+
+    void explainStack(){
+        stack<int>st;
+        st.push(1);  //{1}
+        st.push(3);  //{3,1}
+        st.push(4);  //{4,3,1}
+        st.push(5);  //{5,4,3,1}
+        st.emplace(5);//{5,5,4,3,1}
+
+        cout<<st.top(); //prints 5 
+
+        st.pop(); //st looks like {5,4,3,1}
+
+        cout<< st.top(); //5
+
+        cout<< st.size(); //4
+
+        cout<<st.empty(); //false
+
+        stack<int>st1 , st2;
+        st1.swap(st2); 
+        //Complexities of stack operation O(1),takes constant time.
+        //Stack works on Last in First out principle.
+        //Stacks cannot be indexed and it is considered invalid.
+
+
+    }
+
+    void explainQueue(){
+        queue<int> q;
+        q.push(1);  //{1}
+        q.push(7);  //{1,7}
+        q.emplace(4); //{1,7,4}
+
+        q.back()  += 5
+
+        cout<< q.back();  //prints 9
+
+        cout<< q.front(); //prints 1
+
+        q.pop(); //{7,4}
+
+        cout<< q.front(); //prints 7
+        //size , swap and empty are same as stack
+        //Complexity of operations : O(1)
+        //Follows First in First out principle.
+    }
+
+    void explainPQ(){
+        priority_queue<int>pq;
+
+        pq.push(5);  //{5}
+        pq.push(2);  //{5,2}
+        pq.push(8);  //{8,5,2}
+        pq.emplace(10); //{10,8,5,2}
+
+        cout<< pq.top(); //Prints 10
+
+        pq.pop(); //{8,5,2}
+
+        cout<< pq.top(); //prints 8
+        //size swap empty function same as others
+
+        //Minimum Heap
+        priority_queue<int , vector<int>, greater<int>> pq; //to get a priority queue with minimum element on top.
+        pq.push(5); //{5}
+        pq.push(2); //{2,5}
+        pq.push(8); //{2,5,8}
+        pq.emplace(10); //{2,5,8,10}
+
+        cout<< pq.top(); //prints 2
+        //largerst value in priority queue stays on top. 
+        //push , pop -  logn
+        //top - O(1)
+    }
+
+
+    //Set stores elements uniqely and in sorted order.
+    void explainSet(){
+        set<int>st;
+        st.insert(1);  //{1}
+        st.emplace(2); //{1,2}
+        st.insert(2);  //{1,2}
+        st.insert(4);  //{1,2,4}
+        st.insert(3);  //{1,2,3,4}
+
+        //Functionality of insert in vector
+        //can be used to increase efficiency
+
+        //begin() , end(), rbegin(), rend() , size(),
+        //empty() and swap() are same as those of above
+
+        //{1,2,3,4,5}
+        auto it = st.find(3); 
+
+        //{1,2,3,4,5}
+        auto it = st.find(6);
+
+        //{1,4,5}
+        st.erase(5);  //erase 5 //takes logarithmic time
+
+        int cnt = st.count(1);
+
+        auto it = st.find(3);
+        st.erase(it); //it takes constant time
+
+        //{1,2,3,4,5}
+        auto it1 = st.find(2);
+        auto it2 = st.find(4);
+        st.erase(it1 , it2); //after erase {1,4,5} [first,last)
+
+        //lower bond() and upper bound() function works in the same way.
+        //as in vector it does.
+
+        //Below is the syntax
+        auto it = st.lower_bound(2);
+
+        auto it = st.upper_bound(3);
+
+    }
+}
