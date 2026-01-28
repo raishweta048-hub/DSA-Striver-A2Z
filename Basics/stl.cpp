@@ -5,6 +5,9 @@
 //Date:21 Jan 2026
 //Covers Stacks,Queue,PriorityQueue ,Sets
 
+//Date:28 Jan 2026
+//STL update: map, multimap, multiset, unordered_map
+
 #include<iostream>//All libraries are automatically included if #include <bits/stdc++.h> is used.
 #include<utility>
 #include<vector>
@@ -259,5 +262,88 @@ int main(){
 
         auto it = st.upper_bound(3);
 
+    }
+
+    void explainmultilist(){
+        //Stores elements in sorted order.
+        //Everything is same as set
+        //only stores duplicate elements also
+
+        multiset<int>ms;
+        ms.insert(1);  //{1}
+        ms.insert(1);  //{1,1}
+        ms.insert(1);  //{1,1,1}
+
+        ms.erase(1);  //all 1's erased
+
+        int cnt = ms.count(1);
+        
+        //only a single one erased
+        ms.erase(ms.find(1));
+
+        ms.erase(ms.find(1) , ms.find(1)+2);
+
+        //rest all function same as set
+    }
+    
+    void explainUSet(){
+        unordered_set<int> st;
+        //stores elements in unique or randomised order 
+        //lower_bound and upper_bound function
+        //does not works, rest all functions are same.
+        //as above, it does not stores in any
+        //particular order it has a better complexity
+        //than set in most cases, except some when collision happens 
+    }
+
+
+    void explainMap(){
+        //stores elements in the form of keys and value
+        //keys are unique but values can be duplicate
+        //keys can be of any datatype
+        //map stores unique keys in sorted order.
+        map<int , int> mpp;
+        map<int , pair<int , int>> mpp;
+        map< pair<int , int> , int > mpp;
+
+        mpp[1] = 2; //Stores element into map in the form {1,2}
+
+        mpp.emplace({3, 1});    
+
+        mpp.insert({2, 4});
+
+        mpp[{2,3}] = 10;
+        
+        //to iterate over a map 
+        for(auto it : mpp){
+            cout<< it.first <<" "<<it.second<<endl;
+        }
+
+        cout<< mpp[1];
+        cout<< mpp[5];
+
+        auto it = mp.find(3);
+        cout<< *(it).second;
+
+        auto it = mpp.find(5);
+
+        //This is the syntax
+        auto it = mpp.lower_bound(2);
+
+        auto it = mpp.upper_bound(3);
+
+        //erase,swap,size,empty are same as above
+    }
+
+
+    void explainMultimap(){
+        //same as set and unordered_set diffrence.
+        //can store duplicate keys in sorted order.
+        //only mpp[key] cannot be used here.
+    }
+
+    void explainUnorderedMap(){
+        //stores unique keys but in randomized order.
+        //same as set and unordered_Set diffrence.
     }
 }
