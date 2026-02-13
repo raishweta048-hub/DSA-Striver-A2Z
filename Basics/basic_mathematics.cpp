@@ -44,3 +44,25 @@ int count(int n){
     return cnt;
 }
 //Time Complexity : O(log10 (N))
+
+/*2. Reverse of number : It uses extraction of digits with an additional 
+concept that is if the trailing zeros are not allowed in the reversed output.
+Formula: revNum = (revNum * 10) +  lastdigit */
+
+#include<iostream>
+using namespace std;
+int main
+{
+    int n;
+    cin>>n;
+    int revNum=0;
+    while(n>0) 
+    {
+        int id = n % 10;
+        revNum = (revNum * 10) + ld;
+    }
+    cout<< revNum;
+}
+
+3.Check Palindrome : The numbers for which Reverse is exactly same as 
+the original one.
