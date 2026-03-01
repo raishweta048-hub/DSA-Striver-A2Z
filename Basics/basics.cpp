@@ -25,6 +25,8 @@ using std::cout; brings only the specific name cout into the global scope, makin
 \n is a newline escape character that moves the cursor to the next line without flushing the output buffer.
 std::endl inserts a newline and also flushes the output buffer, making it slower than \n.
 
+bits/stdc++.h includes all standard library at once. Due to compile time overhead it isn't recommended for production.
+
 Input/Output are handled using iostream header file.
 */
 #include <iostream>
@@ -46,6 +48,20 @@ int main()
     }
 
     // ===== ARRAYS =====
+    /* Array is a linear data structure with homogeneous elements and contiguous memory locations in which we store data and perform any operation, with the help of index values.
+
+Arrays are 0-indexed because the array name stores the base address of the first element. The element at index i is accessed using the formula:
+BaseAddress + (index × size).
+If indexing starts from 0, the first element is accessed directly at the base address, making pointer arithmetic simple and efficient.
+
+Declaration:
+Syntax : Data_type  array_name  [Array_size] ;
+
+Accessing an array element:-
+=> location is known: use index values
+=> location is unknown: use Algorithms for optimized search (Linear or Binary Search.)
+=> frequent lookups are required: store array into hash based data structures.
+ */
     int a[3];
     cout << "Input array elements: ";
     cin >> a[0] >> a[1] >> a[2];
