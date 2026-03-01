@@ -1,7 +1,32 @@
 // basics.cpp
 // Covers: C++ skeleton, IO, conditionals, arrays, loops
 // Date: 23 Dec 2025
+/*  
 
+C++ Language
+    |
+    |--- Standard Library
+            |
+            |--- namespace std
+                    |
+                    |--- cout
+                    |--- cin
+                    |--- string
+                    |--- vector
+                    |--- sort
+                    |--- sqrt
+                    |--- etc.
+
+The C++ Standard Library is a collection of predefined functions, classes, and objects provided by C++. All standard library components are defined inside the namespace std to avoid name conflicts.
+
+using namespace std; brings all the names from the standard namespace into the global scope, which may cause name conflicts.
+using std::cout; brings only the specific name cout into the global scope, making it safer and more controlled
+
+\n is a newline escape character that moves the cursor to the next line without flushing the output buffer.
+std::endl inserts a newline and also flushes the output buffer, making it slower than \n.
+
+Input/Output are handled using iostream header file.
+*/
 #include <iostream>
 using namespace std;
 
