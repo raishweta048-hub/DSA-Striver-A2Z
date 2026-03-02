@@ -40,6 +40,11 @@ int main()
     cin >> age;
     cout << age << endl;
 
+/*Conditional statements are used to make decisions in a program.
+They allow the program to execute certain code only if a condition is true.
+If statement is executed only if the condition is met
+else statement is an optional companion which executes when if condition is not met.
+When there are multiple conditions to test with these statements we use else-if in between to simplify the code rather that writing independent if statements again.*/
     // ===== IF-ELSE =====
     if(age < 18) {
         cout << "You are not an adult" << endl;
