@@ -78,6 +78,27 @@ Accessing an array element:-
     cout << arr[1][1] << endl;
 
     // ===== FOR LOOP =====
+    /*For loop: It is a control structure that allows users to execute specific block of code repeatedly.A for loop is used when you know how many times you want to repeat a task.
+How it works
+
+Initialization → Runs once at the start
+
+Condition → Checked before every iteration
+
+Body → Code runs if condition is true
+
+Increment/Decrement → Updates the loop variable
+
+Nested for loops:
+For loops can be nest one inside another. It becomes useful with multi-dimensional data structures or problems with multiple iterations.
+
+The inner loop runs completely every time and the outer loop runs once.
+It can be used :-
+	Patterns
+	Multidimensional Array
+	Comparision of elements
+	Tables / Combinations
+     */
     int n;
     cout << "Enter value of n: ";
     cin >> n;
