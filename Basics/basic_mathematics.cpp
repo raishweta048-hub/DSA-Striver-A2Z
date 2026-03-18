@@ -167,3 +167,56 @@ int main(){
 
     return 0;
 }
+
+/*Check for Prime :- A number which has exactly 2 factors,1 and itself. */
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    int cnt = 0;
+
+    for(int i = 1; i*i <= n ; i++){
+        if(n % i == 0){
+            cnt ++;
+        
+            if((n/i) != i)
+                cnt++;
+        }
+    }
+    if (cnt == 2)
+        cout<<"True";
+    
+    else
+    cout<<"False";
+}
+
+/*GCD / HCF :-
+Euclideon Algorithm:-
+gcd(a,b) = gcd( a-b , b)...this can end up taking much more time 
+if the numbers have huge diffrences...
+Instead it can be improvied if use this way:-
+gcd(a,b) = gcd(a % b , b)
+If one of them becomes zero, the other is GCD. */
+
+#include<iostream>
+using namespace std;
+int main(){
+    int a , b;
+    cout<<"Enter a and b : ";
+    cin>>a>>b;
+
+    while(a>0 && b>0)
+{
+    if (a>b)
+        a = a % b;
+    else
+        b = b % a;
+
+    if(a == 0)
+        cout<<b;
+}
+return 0;
+}
