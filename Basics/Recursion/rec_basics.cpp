@@ -126,4 +126,27 @@ int main(){
     return 0;
 }
 
+//6 . Sum of n natural nos. [Parameterized way]
+#include <iostream>
+using namespace std;
 
+void sum(int n, int s)
+{
+    if (n == 0)
+    {
+        cout << "Sum = " << s;
+        return;
+    }
+
+    sum(n - 1, s + n);   // Backtracking through parameter
+}
+
+int main()
+{
+    int n;
+    cout << "Enter n: ";
+    cin >> n;
+
+    sum(n, 0);
+    return 0;
+}
