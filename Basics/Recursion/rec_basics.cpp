@@ -126,7 +126,7 @@ int main(){
     return 0;
 }
 
-//6 . Sum of n natural nos. [Parameterized way]
+//6 . Parameterized Recursion [Sum of N numbers]
 #include <iostream>
 using namespace std;
 
@@ -149,4 +149,24 @@ int main()
 
     sum(n, 0);
     return 0;
+}
+ //6B.Functional Resursion [Sum of N numbers]
+int NnumbersSum(int n)
+{
+	if (n == 0)
+	{
+		return 0;
+	}
+
+	return n+ NnumbersSum(n-1);
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+
+	cout<<NnumbersSum(n);
+
+	return 0;
 }
