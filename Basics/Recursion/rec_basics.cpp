@@ -170,3 +170,38 @@ int main()
 
 	return 0;
 }
+
+//7A Parameterized Recursion [Factorial] 
+void f(int i ,int fact){
+    if (i<1){
+        cout<<fact;
+        return;
+    }
+        f(i-1 , fact*i);
+    
+}
+
+int main(){
+    int n;
+    cin>>n;
+    f(n , 1) ;
+    return 0;
+}
+
+//7B Functional Recursion [factorial]
+
+int f(int n){
+    if(n == 0)
+        return 1;
+
+    return n * f(n-1);
+}
+
+int main(){
+    int n;
+    cin >> n;
+
+    cout << f(n);
+
+    return 0;
+}
