@@ -205,3 +205,23 @@ int main(){
 
     return 0;
 }
+
+//Reverse an Array
+void reverse(int a[], int l, int r){
+    if(l >= r)
+        return;
+
+    swap(a[l], a[r]);
+
+    reverse(a, l+1, r-1);
+}
+
+//Method 2
+void reverse(int arr[], int n){
+    if(n <= 1)
+        return;
+
+    swap(arr[0], arr[n-1]);
+
+    reverse(arr+1, n-2);
+}
