@@ -1,1 +1,66 @@
+Hashing is a data-access technique in which a hash function maps a key to a fixed-size index within a hash table, allowing direct storage and retrieval of data while minimizing search time.
+ It is used to achieve near constant-time complexity for insertion, deletion, and lookup operations by avoiding linear traversal of data
 
+ Hashing converts a key into a storage location using a mathematical function(Hash function) so that data can be accessed directly rather than searched sequentially.
+Hashing is commonly used in Frequency Counting and Character counting
+1. Frequency counting:
+    We can solve it with 2 approches:
+    a. For every element, traverse the entire array and count how many times it appears.
+        Eg: arr = [1,2,1,3,2,1]
+        To find frequency of 1
+        int count = 0;
+
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr[i] == 1) {
+            count++;
+            }
+        }
+        Time Complexity : O(n²)
+        This may turnout to be slow for larger inputs.
+        
+    b. Number Hashing
+        int hash[100] = {0};
+
+        for(int i = 0; i < n; i++)
+        {
+            hash[arr[i]]++;
+        }
+
+    For the same array,a hash array is created and with the help of data in the array, hash array precalculates the freqency of numbers on its corresponding index values.
+    This makes storing ,retrieving and searching effiecient and faster.
+
+
+2. Character counting :
+This could be done for either lowercase or uppercase or both.
+Here, we count characters based on their ASCII values.
+
+a.Lowercase characters
+Eg : int x = 'a' , So here x will typecast the value of a to its ASCII character and then count its frequency.
+
+eg: s = "abaca";
+We know that ASCII values of 'a' to 'z' lies from 97 to 122.
+So to caluclate the index of each character for it to store in hash array we use calulations 
+            'a' - 'a' = 0
+'            b' - 'a' = 1
+            'c' - 'a' = 2
+
+    int hash[26] = {0};
+
+    for(char ch : s)
+    {
+        hash[ch - 'a']++;
+    }
+
+
+b. Uppercase characters / All ASCII characters 
+ASCII characters = 256
+
+int hash[256] = {0};
+
+for(char ch : s)
+{
+    hash[ch]++;
+}
+
+Hence, with the help of hashing instead of checking every element again and again to find the frequency, we store the count at a fixed index.
+That's the reason frequency lookup takes O(1) time, because we already know exactly where the answer is stored.
