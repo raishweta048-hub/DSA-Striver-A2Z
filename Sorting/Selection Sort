@@ -1,1 +1,46 @@
+Selection Sort 
+Repeatedly select the minimum element from the unsorted part of the array and place it at the beginning of the unsorted portion.
 
+Steps to follow for Selection sort :-
+Step1 : Assume the first element to be smallest
+Step2 : Traverse the array ahead while comparing each element with the current minimum
+Step3 : After the search , swap the smallest element with the element at the current position (i).
+Step4 :In this way, the first element is sorted then move to next index (i+1) and treat the remaining elements as unsorted portion.
+Step5 : Find the smallest element in the remaining unsorted portion , Swap it with the first element of that unsorted portion.
+Step6 : Continue until only one element remains in unsorted portion and that point the entire array will be sorted.
+
+#include<iostream>
+using namespace std;
+
+void selection_sort(int arr[] , int n){
+    for(int i=0; i<=n-2; i++){
+        int mini = i;
+        for(int j =i+1; j<n ; j++){
+            if(arr[j]<arr[mini]){
+                mini = j;
+            }
+        }
+        int temp = arr[mini];
+        arr[mini] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int  arr[n];
+    for(int i = 0; i<n ; i++){
+        cin>>arr[i];
+    }
+    selection_sort(arr , n);
+    for(int i =0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+  return 0;
+}
+
+Time Complexity:-
+Best Case :O(n²)
+Average Case :O(n²)
+Worst Case :O(n²)
