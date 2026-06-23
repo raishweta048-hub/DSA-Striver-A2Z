@@ -1,1 +1,53 @@
+Bubble Sort:-
+• Bubble Sort works by repeatedly comparing adjacent elements.
+• If two adjacent elements are in the wrong order, they are swapped.
+• After each pass, the largest element in the unsorted portion "bubbles up" to its correct position at the end.
+• The sorted portion grows from right to left after every pass.
 
+Steps for Bubble Sort:-
+• Start from the first element of the array.
+• Compare each pair of adjacent elements.
+• Swap the elements if the left element is greater than the right element.
+• Continue this process until the end of the unsorted portion.
+• After one complete pass, the largest element reaches its correct position at the end.
+• Reduce the unsorted portion by one, since the last element is now sorted.
+• Repeat the process for the remaining unsorted elements.
+• Stop when:
+  all passes are completed, or
+  a complete pass occurs without any swaps (optimized Bubble Sort), indicating the array is already sorted.
+
+
+#include<iostream>
+using namespace std;
+
+void bubble_sort(int arr[] , int n){
+    for(int i=n-1 ; i>=0 ; i--){
+        int didswap = 0;
+        for(int j=0 ; j<=i-1; j++){
+            if(arr[j] > arr[j+1]){
+                int temp = arr[j+1];
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+                didswap = 1;
+            }
+        }
+        if(didswap==0){
+            break;
+        }
+        cout<<"runs\n";
+    }
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int  arr[n];
+    for(int i = 0; i<n ; i++){
+        cin>>arr[i];
+    }
+    bubble_sort(arr , n);
+    for(int i =0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+  return 0;
+}
