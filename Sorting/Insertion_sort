@@ -1,1 +1,51 @@
+Insertion Sort:-
+• Takes one element at a time and places it in its correct position in the already sorted part of the array.
+• Selects the current element and compares it with the elements on its left.
+• Continues shifting (or swapping) larger elements to the right until the correct position is found.
+• Sorts the array while reading the elements, instead of sorting after reading all elements.
 
+Steps for Insertion Sort:
+• Assume the first element is already sorted.
+• Pick the next element from the unsorted portion.
+• Compare it with the elements on its left.
+• Shift (or swap) all larger elements one position to the right.
+• Insert the current element into its correct position.
+• The sorted portion grows by one element after every pass.
+• Repeat the process until all elements are inserted into their correct positions.
+
+
+
+#include<iostream>
+using namespace std;
+
+void insertion_sort(int arr[] , int n){
+    for(int i=0; i<=n-1;i++){
+        int j = i;
+        while(j > 0 && arr[j-1] > arr[j]){
+            int temp = arr[j-1];
+            arr[j-1] = arr[j];
+            arr[j] = temp;
+
+
+
+            j--;
+        }
+    }
+}
+int main(){
+    int n;
+    cin>>n;
+    int  arr[n];
+    for(int i = 0; i<n ; i++){
+        cin>>arr[i];
+    }
+    insertion_sort(arr , n);
+    for(int i =0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+  return 0;
+}
+
+Time Complexity:-
+Best case : O(n)
+Worst case : O(n²)
