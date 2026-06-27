@@ -1,1 +1,18 @@
+Merge Sort:-
+Merge Sort follows the Divide and Conquer approach.
+It Divides the array into two halves,recursively sorts each half.
+Then, Merges the two sorted halves into one sorted array.
 
+Steps for Merge Sort:
+
+Find the middle index of the array.
+
+Divide the array into two halves.
+
+Recursively apply Merge Sort to the left half.
+
+Recursively apply Merge Sort to the right half.
+
+Merge the two sorted halves into one sorted array.
+
+Repeat until the complete array is sorted.
