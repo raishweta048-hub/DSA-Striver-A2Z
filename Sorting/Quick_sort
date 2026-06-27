@@ -1,1 +1,23 @@
+Quick Sort:-
+Quick Sort also follows the Divide and Conquer approach.
+It chooses one element called the Pivot.
+It rearranges the array so that:
+  all smaller elements go to the left,
+  all larger elements go to the right.
+Then it recursively sorts both parts.
 
+
+Steps for Quick Sort:
+Choose a pivot element.
+
+Partition the array.
+  Smaller elements → Left
+  Larger elements → Right
+
+Pivot reaches its final sorted position.
+
+Recursively apply Quick Sort on the left subarray.
+
+Recursively apply Quick Sort on the right subarray.
+
+Repeat until every subarray has at most one element.
