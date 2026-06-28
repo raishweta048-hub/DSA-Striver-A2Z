@@ -21,3 +21,83 @@ Recursively apply Quick Sort on the left subarray.
 Recursively apply Quick Sort on the right subarray.
 
 Repeat until every subarray has at most one element.
+
+
+#include <iostream>
+using namespace std;
+
+// Function to partition the array
+int partition(int arr[], int low, int high)
+{
+    int pivot = arr[low];
+
+    int i = low;
+    int j = high;
+
+    while(i < j)
+    {
+        // Move i towards right until an element greater than pivot is found
+        while(arr[i] <= pivot && i <= high - 1)
+        {
+            i++;
+        }
+
+        // Move j towards left until an element smaller than or equal to pivot is found
+        while(arr[j] > pivot && j >= low + 1)
+        {
+            j--;
+        }
+
+        // Swap elements if i and j haven't crossed
+        if(i < j)
+        {
+            swap(arr[i], arr[j]);
+        }
+    }
+
+    // Place pivot in its correct position
+    swap(arr[low], arr[j]);
+
+    return j;
+}
+
+// Recursive Quick Sort function
+void quickSort(int arr[], int low, int high)
+{
+    // Base Case
+    if(low < high)
+    {
+        // Partition the array and get pivot index
+        int pIndex = partition(arr, low, high);
+
+        // Sort left subarray
+        quickSort(arr, low, pIndex - 1);
+
+        // Sort right subarray
+        quickSort(arr, pIndex + 1, high);
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    int arr[n];
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+
+    quickSort(arr, 0, n - 1);
+
+    cout << "Sorted Array: ";
+
+    for(int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+    return 0;
+}
