@@ -1,1 +1,92 @@
+Approach
 
+This solution uses two traversals of the array.
+
+Step 1: Find the Largest Element
+Assume the first element is the largest.
+Traverse the array and update the largest element whenever a larger value is found.
+
+Step 2: Find the Second Largest Element
+Traverse the array again.
+Ignore the largest element.
+Among the remaining elements, keep updating the maximum value found.
+If no such element exists, return -1.
+To handle arrays containing negative numbers, initialize the second largest element with INT_MIN instead of -1.
+
+
+Time Complexity
+Time Complexity: O(2N) ≈ O(N)
+First traversal → Find the largest element.
+Second traversal → Find the second largest element.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code:-
+
+#include <iostream>
+#include <vector>
+#include <climits>
+
+using namespace std;
+
+class Solution {
+public:
+    int secondLargestElement(vector<int>& nums) {
+
+        int n = nums.size();
+
+        // If the array has fewer than 2 elements
+        if (n < 2)
+            return -1;
+
+        // Step 1: Find the largest element
+        int largest = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] > largest) {
+                largest = nums[i];
+            }
+        }
+
+        // Step 2: Find the second largest element
+        int secondLargest = INT_MIN;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != largest && nums[i] > secondLargest) {
+                secondLargest = nums[i];
+            }
+        }
+
+        // If no second largest element exists
+        if (secondLargest == INT_MIN)
+            return -1;
+
+        return secondLargest;
+    }
+};
+
+int main() {
+
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    vector<int> nums(n);
+
+    cout << "Enter the elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    Solution obj;
+
+    int ans = obj.secondLargestElement(nums);
+
+    if (ans == -1)
+        cout << "No second largest element exists.";
+    else
+        cout << "Second Largest Element: " << ans;
+
+    return 0;
+}
