@@ -1,1 +1,43 @@
+Approach :-
+Start from the second element (index 1).
 
+Compare every element with its previous element.
+
+If at any point:
+arr[i] < arr[i - 1]
+then the array is not sorted (in ascending order).
+
+If the loop finishes without finding such a pair, the array is sorted.
+
+
+Time and Space Complexity:-
+Time Complexity: O(n)
+Space Complexity: O(1)
+
+Code:-
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isSorted(vector<int>& arr) {
+    int n = arr.size();
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < arr[i - 1]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 4, 5};
+
+    if (isSorted(arr))
+        cout << "Array is Sorted";
+    else
+        cout << "Array is Not Sorted";
+
+    return 0;
+}
