@@ -1,1 +1,54 @@
+Problem Statement:
+Given an array of size N and an integer D, rotate the array to the left by D places.
 
+
+Approach:
+Find the size of the array n.
+Compute d = d % n (to handle large values of d).
+Store the first d elements in a temporary vector.
+Shift the remaining elements to the left.
+Copy the temporary elements to the end of the array.
+
+
+Code:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void rotateLeft(vector<int>& nums, int d) {
+    int n = nums.size();
+
+    d = d % n;
+
+    // Store first d elements
+    vector<int> temp;
+    for (int i = 0; i < d; i++) {
+        temp.push_back(nums[i]);
+    }
+
+    // Shift remaining elements to the left
+    for (int i = d; i < n; i++) {
+        nums[i - d] = nums[i];
+    }
+
+    // Copy temp elements at the end
+    for (int i = 0; i < d; i++) {
+        nums[n - d + i] = temp[i];
+    }
+}
+
+int main() {
+    vector<int> nums = {1,2,3,4,5,6,7};
+    int d = 2;
+
+    rotateLeft(nums, d);
+
+    for (int x : nums)
+        cout << x << " ";
+
+    return 0;
+}
+
+
+Time Complexity: O(N)
+Space Complexity: O(d)
