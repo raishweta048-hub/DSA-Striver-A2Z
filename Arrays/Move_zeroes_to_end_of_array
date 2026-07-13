@@ -1,1 +1,61 @@
+Problem Statement:
+Given an integer array, move all the 0's to the end of the array while maintaining the relative order of the non-zero elements.
 
+
+Approach:
+Find the index of the first zero and store it in j.
+Traverse the array from j + 1.
+Whenever a non-zero element is found, swap it with nums[j].
+Increment j after every swap.
+Continue until the end of the array.
+This keeps all non-zero elements in their original order and pushes all zeroes to the end.
+
+
+Code:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = nums.size();
+
+        // Find the first zero
+        int j = -1;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) {
+                j = i;
+                break;
+            }
+        }
+
+        // If there are no zeroes
+        if (j == -1)
+            return;
+
+        // Move non-zero elements forward
+        for (int i = j + 1; i < n; i++) {
+            if (nums[i] != 0) {
+                swap(nums[i], nums[j]);
+                j++;
+            }
+        }
+    }
+};
+
+int main() {
+    vector<int> nums = {1, 0, 2, 3, 0, 4, 0, 1};
+
+    Solution obj;
+    obj.moveZeroes(nums);
+
+    for (int x : nums)
+        cout << x << " ";
+
+    return 0;
+}
+
+
+Time Complexity : O(N)
+Space Complexity : O(1)
