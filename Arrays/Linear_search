@@ -1,1 +1,45 @@
+Problem Statement:
+Given an array and a target element, search for the target in the array. If it is present, return its index; otherwise, return -1.
 
+
+Approach:
+Start from the first element of the array.
+Compare each element with the target.
+If the current element is equal to the target, return its index.
+If the entire array is traversed and the target is not found, return -1.
+
+
+Algorithm:
+Start from index 0.
+For every element in the array:
+    Compare the current element with the target.
+    If they are equal:
+        Return the current index.
+
+If the loop finishes:
+    Return -1.
+
+
+C++ Code
+class Solution {
+public:
+    int linearSearch(vector<int>& nums, int target) {
+
+        for (int i = 0; i < nums.size(); i++) {
+
+            if (nums[i] == target)
+                return i;
+
+        }
+
+        return -1;
+    }
+};
+
+
+Time Complexity
+Best Case: O(1)
+Worst Case: O(n)
+Average Case: O(n)
+
+Space Complexity = O(1)
