@@ -1,1 +1,97 @@
+Problem Statement
+Given two sorted arrays, return the union of the arrays. The union should contain all unique elements present in either array in sorted order
 
+Approach
+Example:
+Input:
+arr1 = [1,2,2,3,4]
+arr2 = [2,3,4,5]
+
+Output:
+[1,2,3,4,5]
+
+
+1. Brute Force Approach:
+  Copy all elements of both arrays into a third array.
+  Sort the combined array.
+  Traverse the sorted array and remove duplicate elements.
+This approach is less efficient because,
+  If Both input arrays are already sorted, but this approach sorts them again, which is unnecessary.
+  Sorting increases the time complexity.
+  It requires an additional combined array before removing duplicates.
+
+2. Optimal Approach (Two Pointer)
+Since both arrays are already sorted, we can use the Two Pointer Technique.
+
+Place one pointer (i) at the beginning of arr1.
+Place another pointer (j) at the beginning of arr2.
+Compare the elements at both pointers:
+If arr1[i] < arr2[j], add arr1[i] (if not already added) and move i.
+If arr2[j] < arr1[i], add arr2[j] (if not already added) and move j.
+If both are equal, add only one copy and move both pointers.
+After one array is exhausted, add the remaining elements from the other array while avoiding duplicates.
+
+Code:
+class Solution {
+public:
+    vector<int> unionArray(vector<int>& arr1, vector<int>& arr2) {
+
+        int i = 0, j = 0;
+        vector<int> ans;
+
+        while (i < arr1.size() && j < arr2.size()) {
+
+            if (arr1[i] < arr2[j]) {
+
+                if (ans.empty() || ans.back() != arr1[i])
+                    ans.push_back(arr1[i]);
+
+                i++;
+            }
+            else if (arr2[j] < arr1[i]) {
+
+                if (ans.empty() || ans.back() != arr2[j])
+                    ans.push_back(arr2[j]);
+
+                j++;
+            }
+            else {
+
+                if (ans.empty() || ans.back() != arr1[i])
+                    ans.push_back(arr1[i]);
+
+                i++;
+                j++;
+            }
+        }
+
+        while (i < arr1.size()) {
+
+            if (ans.empty() || ans.back() != arr1[i])
+                ans.push_back(arr1[i]);
+
+            i++;
+        }
+
+        while (j < arr2.size()) {
+
+            if (ans.empty() || ans.back() != arr2[j])
+                ans.push_back(arr2[j]);
+
+            j++;
+        }
+
+        return ans;
+    }
+};
+
+
+Time Complexity (Optimal):
+The first pointer (i) traverses the first array only once.
+The second pointer (j) traverses the second array only once.
+Time Complexity: O(n + m)
+
+where:
+n = size of the first array
+m = size of the second array
+Auxiliary Space Complexity: O(1)
