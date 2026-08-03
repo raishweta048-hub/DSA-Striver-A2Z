@@ -1,1 +1,95 @@
+Problem Statement:
+Given an array containing N-1 distinct numbers in the range 1 to N.
+Exactly one number is missing.
 
+Brute Force Approach:
+For every number from 1 to N, check whether it exists in the array.
+The first number that is not found is the missing number.
+
+Algorithm:
+For every number from 1 to N
+Search the entire array.
+If found, continue.
+If not found, return that number.
+
+Code:
+#include <iostream>
+using namespace std;
+
+int missingNumber(int arr[], int n)
+{
+    for(int i = 1; i <= n; i++)
+    {
+        bool found = false;
+
+        for(int j = 0; j < n - 1; j++)
+        {
+            if(arr[j] == i)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if(found == false)
+            return i;
+    }
+
+    return -1;
+}
+
+int main()
+{
+    int n = 5;
+    int arr[] = {1,2,4,5};
+
+    cout << missingNumber(arr,n);
+
+    return 0;
+}
+
+Time Complexity = O(N × N) = O(N²)
+Space Complexity = O(1)
+
+
+Optimal Approach : Using XOR
+XOR has useful properties:
+A ^ A = 0
+A ^ 0 = A
+A ^ B ^ A = B
+So if every number appears once except the missing one, all matching numbers cancel each other, leaving only the missing number.
+
+Code:
+#include <iostream>
+using namespace std;
+
+int missingNumber(int arr[], int n)
+{
+    int xor1 = 0;
+    int xor2 = 0;
+
+    for(int i = 1; i <= n; i++)
+    {
+        xor1 ^= i;
+    }
+
+    for(int i = 0; i < n - 1; i++)
+    {
+        xor2 ^= arr[i];
+    }
+
+    return xor1 ^ xor2;
+}
+
+int main()
+{
+    int n = 5;
+    int arr[] = {1,2,4,5};
+
+    cout << missingNumber(arr,n);
+
+    return 0;
+}
+
+Time Complexity = O(N)
+Space Complexity = O(1)
