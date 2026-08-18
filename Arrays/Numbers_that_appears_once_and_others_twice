@@ -1,1 +1,260 @@
+Problem Statement
 
+Given an array of integers, every element appears exactly twice except for one element that appears only once. Find and return the element that appears only once.
+Example
+Input:  [4, 1, 2, 1, 2]
+Output: 4
+
+Here:
+1 appears twice
+2 appears twice
+4 appears once
+
+Therefore, the answer is 4.
+
+Approach 1: Brute Force
+For every element in the array, count how many times it occurs in the entire array.
+If an element's count is 1, then that is our answer.
+
+Algorithm
+Traverse the array using an outer loop.
+For each element, initialize count = 0.
+Use another loop to compare the current element with every element in the array.
+Increment count whenever a matching element is found.
+If count == 1, return that element.
+
+Code
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+int singleNumber(vector<int>& arr) {
+
+
+    for (int i = 0; i < arr.size(); i++) {
+
+
+        int count = 0;
+
+
+        for (int j = 0; j < arr.size(); j++) {
+
+
+            if (arr[i] == arr[j]) {
+                count++;
+            }
+        }
+
+
+        if (count == 1) {
+            return arr[i];
+        }
+    }
+
+
+    return -1;
+}
+
+
+int main() {
+
+
+    vector<int> arr = {4, 1, 2, 1, 2};
+
+
+    cout << singleNumber(arr);
+
+
+    return 0;
+}
+
+Complexity:
+Time Complexity: O(N²)
+Space Complexity: O(1)
+
+The brute-force approach takes O(N²) time because every element is compared with every other element.
+For a large array, this becomes inefficient.
+We can improve the time complexity by storing the frequency of every element using a hash map.
+
+Approach 2: Better — Hashing
+Instead of repeatedly counting every element, store the frequency of each element in a hash map.
+For example:
+Array: [4, 1, 2, 1, 2]
+Frequency:
+4 → 1
+1 → 2
+2 → 2
+
+The element having frequency 1 is the answer.
+
+Algorithm
+Create an unordered_map.
+Traverse the array.
+Increase the frequency of every element.
+Traverse the map.
+Find the element whose frequency is 1.
+Return that element.
+
+Code:
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+
+int singleNumber(vector<int>& arr) {
+
+
+    unordered_map<int, int> freq;
+    // Store frequency of every element
+    for (int i = 0; i < arr.size(); i++) {
+        freq[arr[i]]++;
+    }
+
+// Find the element appearing once
+    for (auto it : freq) {
+
+
+        if (it.second == 1) {
+            return it.first;
+        }
+    }
+
+
+    return -1;
+}
+
+
+int main() {
+
+
+    vector<int> arr = {4, 1, 2, 1, 2};
+
+
+    cout << singleNumber(arr);
+
+
+    return 0;
+}
+
+Complexity
+Time Complexity
+Time Complexity: O(N)
+Space Complexity: O(N)
+
+
+We have improved the time complexity from:
+O(N²) → O(N)
+However, we are now using O(N) extra space.
+Since every element occurs exactly twice except one, there is a special property we can use to eliminate the need for extra space.
+That property is XOR.
+
+
+Approach 3: Optimal — XOR
+Use the XOR (^) operator.
+XOR has two important properties:
+a ^ a = 0
+and
+a ^ 0 = a
+Therefore, when we XOR all elements:
+4 ^ 1 ^ 2 ^ 1 ^ 2
+The duplicate elements cancel each other:4 ^ (1 ^ 1) ^ (2 ^ 2)
+
+Since:
+1 ^ 1 = 0
+2 ^ 2 = 0
+we get:
+4 ^ 0 ^ 0
+Therefore:
+4
+The number appearing once remains.
+Algorithm
+Initialize ans = 0.
+Traverse every element in the array.
+XOR the current element with ans.
+Return ans.
+
+
+Code:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+int singleNumber(vector<int>& arr) {
+
+
+    int ans = 0;
+
+
+    for (int i = 0; i < arr.size(); i++) {
+        ans = ans ^ arr[i];
+    }
+
+
+    return ans;
+}
+
+
+int main() {
+
+
+    vector<int> arr = {4, 1, 2, 1, 2};
+
+
+    cout << singleNumber(arr);
+
+
+    return 0;
+}
+Dry Run
+
+For:
+
+arr = [4, 1, 2, 1, 2]
+
+Initially:
+
+ans = 0
+
+Then:
+
+ans = 0 ^ 4
+     = 4
+
+
+ans = 4 ^ 1
+     = 5
+
+
+ans = 5 ^ 2
+     = 7
+
+
+ans = 7 ^ 1
+     = 6
+
+
+ans = 6 ^ 2
+     = 4
+
+Final answer:
+
+4
+
+Conceptually:
+
+4 ^ 1 ^ 2 ^ 1 ^ 2
+
+
+= 4 ^ (1 ^ 1) ^ (2 ^ 2)
+
+
+= 4 ^ 0 ^ 0
+
+
+= 4
+
+Time Complexity: O(N)
+Space Complexity: O(1)
