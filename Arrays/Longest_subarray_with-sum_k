@@ -1,1 +1,187 @@
+Problem Statement
+Given an array of integers arr of size n and an integer K, find the length of the longest subarray whose sum is equal to K.
 
+1. Brute Force Approach:
+Check every possible subarray.
+We can use two loops:
+First loop → choose the starting index.
+Second loop → choose the ending index.
+Keep calculating the sum.
+Whenever sum == K, calculate its length and update maxLen.
+
+
+Code : C++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int longestSubarray(vector<int>& arr, int K) {
+    int n = arr.size();
+    int maxLen = 0;
+
+    for (int i = 0; i < n; i++) {
+        int sum = 0;
+
+        for (int j = i; j < n; j++) {
+            sum += arr[j];
+
+            if (sum == K) {
+                maxLen = max(maxLen, j - i + 1);
+            }
+        }
+    }
+
+    return maxLen;
+}
+
+int main() {
+    vector<int> arr = {10, 5, 2, 7, 1, 9};
+    int K = 15;
+
+    cout << longestSubarray(arr, K);
+
+    return 0;
+}
+Complexity
+Time Complexity  : O(N²)
+Space Complexity : O(1)
+There are approximately N² possible subarrays, and we check them using nested loops.
+
+
+
+2. Better Approach : Prefix Sum + HashMap
+Now we improve the solution.
+Main Idea
+Suppose the prefix sum at index i is:
+prefixSum = sum of elements from 0 to i
+We want a subarray with sum K.
+
+If:
+prefixSum - previousPrefixSum = K
+then:
+previousPrefixSum = prefixSum - K
+So while traversing the array, we check whether:
+prefixSum - K
+has appeared before.
+If it has, we found a subarray whose sum is K.
+
+Example
+arr = [10, 5, 2, 7, 1, 9]
+K = 15
+At index 3:
+prefixSum = 24
+We need:
+24 - 15 = 9
+If prefix sum 9 occurred earlier, then the elements after that occurrence up to index 3 have sum 15.
+
+Code : C++
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int longestSubarray(vector<int>& arr, int K) {
+    unordered_map<int, int> mp;
+
+    int prefixSum = 0;
+    int maxLen = 0;
+
+    for (int i = 0; i < arr.size(); i++) {
+
+        prefixSum += arr[i];
+
+        // Subarray starts from index 0
+        if (prefixSum == K) {
+            maxLen = i + 1;
+        }
+
+        // Check if prefixSum - K exists
+        if (mp.find(prefixSum - K) != mp.end()) {
+            int len = i - mp[prefixSum - K];
+            maxLen = max(maxLen, len);
+        }
+
+        // Store first occurrence only
+        if (mp.find(prefixSum) == mp.end()) {
+            mp[prefixSum] = i;
+        }
+    }
+
+    return maxLen;
+}
+
+int main() {
+    vector<int> arr = {10, 5, 2, 7, 1, 9};
+    int K = 15;
+
+    cout << longestSubarray(arr, K);
+
+    return 0;
+}
+
+Complexity
+Time Complexity  : O(N)
+Space Complexity : O(N)
+Technically, unordered_map gives average O(1) lookup/insertion.
+
+
+
+3. Optimal Approach : Two Pointers / Sliding Window
+This approach works when the array contains only positive numbers (or non-negative numbers).
+If negative numbers are allowed, use the prefix sum + hashmap approach.
+
+Idea
+Use two pointers:
+left
+right
+Maintain the current window sum.
+Rules
+Expand the window by moving right.
+If sum < K → continue expanding.
+If sum > K → move left forward and subtract elements.
+If sum == K → calculate the length.
+
+Code : C++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int longestSubarray(vector<int>& arr, int K) {
+    int left = 0;
+    int right = 0;
+
+    int sum = 0;
+    int maxLen = 0;
+
+    while (right < arr.size()) {
+
+        sum += arr[right];
+
+        while (sum > K && left <= right) {
+            sum -= arr[left];
+            left++;
+        }
+
+        if (sum == K) {
+            maxLen = max(maxLen, right - left + 1);
+        }
+
+        right++;
+    }
+
+    return maxLen;
+}
+
+int main() {
+    vector<int> arr = {10, 5, 2, 7, 1, 9};
+    int K = 15;
+
+    cout << longestSubarray(arr, K);
+
+    return 0;
+}
+
+Complexity
+Time Complexity  : O(N)
+Space Complexity : O(1)
+Even though there is a while loop inside the while loop, both left and right only move forward. Each element is visited at most a constant number of times.
