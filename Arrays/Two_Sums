@@ -1,1 +1,119 @@
+Problem Statement:
+Given an array of integers nums and an integer target, find two distinct elements in the array whose sum is equal to target.
+Return the indices of those two elements. 
 
+Brute Force Approach
+Idea
+The simplest approach is to examine every possible pair of elements.
+We use two loops:
+The first loop selects an element.
+The second loop checks that element against every element that comes after it.
+If their sum equals the target, return their indices.
+If no pair is found, return an empty result.
+
+Code:
+vector<int> twoSum(vector<int>& nums, int target)
+{
+    int n = nums.size();
+
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = i + 1; j < n; j++)
+        {
+            if(nums[i] + nums[j] == target)
+            {
+                return {i, j};
+            }
+        }
+    }
+
+    return {};
+}
+
+Time Complexity: O(n²)
+For every element, we may have to compare it with many other elements.
+
+Space Complexity: O(1)
+We are not using any extra data structure that grows with the input.
+Although the solution is simple, it performs repeated comparisons.
+For a large array, the number of pairs becomes very large.
+
+
+Better Approach — Hashing
+Idea
+Instead of checking every pair, we can use a hash map to remember elements that we have already encountered.
+For the current element:
+current = nums[i]
+we calculate the value that would be required to reach the target:
+required = target - current
+Then we check whether required has already appeared.If it has, we have found our pair.
+
+Code:
+vector<int> twoSum(vector<int>& nums, int target)
+{
+    unordered_map<int, int> mp;
+
+    for(int i = 0; i < nums.size(); i++)
+    {
+        int required = target - nums[i];
+
+        if(mp.find(required) != mp.end())
+        {
+            return {mp[required], i};
+        }
+
+        mp[nums[i]] = i;
+    }
+
+    return {};
+}
+
+Time Complexity: O(n) average
+We traverse the array once, and hash-map lookup is O(1) on average.
+
+Space Complexity: O(n)
+In the worst case, we may store almost every element in the hash map.
+The brute-force approach searches for the matching element by scanning the array.
+Hashing replaces that repeated scanning with a fast lookup.
+This reduces the average time from:
+O(n²) → O(n)
+
+
+Optimal Approach — Hashing
+For the standard Two Sum problem on an unsorted array, the hashing approach is already the optimal time-complexity solution.
+There is no separate algorithm that improves the general case from O(n) to something smaller, because we need to inspect the input to determine whether the required pair exists.
+Therefore, the optimal solution is the same one-pass hash-map approach.
+Idea
+Process the array from left to right.
+For each element:
+1. Calculate its complement.
+2. Check whether the complement has already been seen.
+3. If yes → return the two indices.
+4. If no → store the current element and its index.
+
+Code:
+vector<int> twoSum(vector<int>& nums, int target)
+{
+    unordered_map<int, int> seen;
+
+    for(int i = 0; i < nums.size(); i++)
+    {
+        int complement = target - nums[i];
+
+        if(seen.count(complement))
+        {
+            return {seen[complement], i};
+        }
+
+        seen[nums[i]] = i;
+    }
+
+    return {};
+}
+
+Time Complexity: O(n) average
+We make one pass through the array and perform constant-time average hash-map operations.
+
+Space Complexity: O(n)
+The hash map can contain up to n elements.
+For an unsorted array, O(n) is the best general time complexity because the algorithm may need to inspect every element.
