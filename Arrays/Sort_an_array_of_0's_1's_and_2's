@@ -1,1 +1,73 @@
+Problem Statement
+Given an array containing only 0s, 1s, and 2s, sort the array in ascending order
+Example:
+nums = [2, 0, 2, 1, 1, 0]
+Output: [0, 0, 1, 1, 2, 2]
 
+
+Brute Force : Sorting
+Code:
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+    }
+};
+
+Complexity
+Time: O(n log n)
+Space: O(log n)
+
+
+Better Solution : Counting
+Idea
+Since there are only three possible values:
+Count how many 0s are present.
+Count how many 1s are present.
+Count how many 2s are present.
+Then overwrite the array:
+Put all the 0s first.
+Then all the 1s.
+Then all the 2s.
+
+Code:
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+
+        int count0 = 0;
+        int count1 = 0;
+        int count2 = 0;
+
+        // Count 0s, 1s and 2s
+        for (int num : nums) {
+            if (num == 0)
+                count0++;
+            else if (num == 1)
+                count1++;
+            else
+                count2++;
+        }
+
+        // Put 0s
+        int index = 0;
+
+        while (count0--) {
+            nums[index++] = 0;
+        }
+
+        // Put 1s
+        while (count1--) {
+            nums[index++] = 1;
+        }
+
+        // Put 2s
+        while (count2--) {
+            nums[index++] = 2;
+        }
+    }
+};
+
+Complexity
+Time: O(n)
+Space: O(1)
