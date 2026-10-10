@@ -1,1 +1,83 @@
+Problem Statement: To find the element that appears more than (n/2) times in an array, where (n) is the size of the array
+Example: arr = [2, 2, 1, 1, 2, 2, 2]
+The majority element is 2 because it appears 5 times, which is more than (7/2 = 3.5).
 
+Brute Force Approach
+For every element, count how many times it occurs in the entire array. If its frequency is greater than (n/2), return it.
+The outer loop selects each element.
+The inner loop counts its occurrences in the entire array.
+If the count is greater than \(n/2\), that element is returned.
+
+Code:
+
+int majorityElement(vector<int>& arr) {
+    int n = arr.size();
+
+    for (int i = 0; i < n; i++) {
+        int count = 0;
+
+        for (int j = 0; j < n; j++) {
+            if (arr[i] == arr[j]) {
+                count++;
+            }
+        }
+
+        if (count > n / 2) {
+            return arr[i];
+        }
+    }
+
+    return -1;
+}
+Time: (O(n^2))
+Space: (O(1))
+
+
+Better Approach :By Using a Hash Map
+Store each element's frequency in a map. As soon as an element's frequency becomes greater than \(n/2\), return it.
+
+Code:
+
+int majorityElement(vector<int>& arr) {
+    int n = arr.size();
+    unordered_map<int, int> freq;
+
+    for (int i = 0; i < n; i++) {
+        freq[arr[i]]++;
+
+        if (freq[arr[i]] > n / 2) {
+            return arr[i];
+        }
+    }
+
+    return -1;
+}
+Time: (O(n))
+Space: (O(n))
+
+
+Optimal Approach: Moore's Voting Algorithm
+Maintain a candidate and a counter. When the counter is zero, select the current element as the candidate. If the next element matches the candidate, increment the counter; otherwise, decrement it.
+
+Code:
+
+int majorityElement(vector<int>& arr) {
+    int candidate = 0;
+    int count = 0;
+
+    for (int i = 0; i < arr.size(); i++) {
+        if (count == 0) {
+            candidate = arr[i];
+        }
+
+        if (arr[i] == candidate) {
+            count++;
+        } else {
+            count--;
+        }
+    }
+
+    return candidate;
+}
+Time: (O(n)
+Space: (O(1))
