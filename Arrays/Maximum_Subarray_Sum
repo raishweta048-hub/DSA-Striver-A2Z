@@ -1,0 +1,27 @@
+Problem Statement : Given an integer array, find the subarray with the largest sum and return the sum of the elements present in that subarray.
+
+Brute Force Approach: 
+Main idea: Find all possible subarrays, calculate the sum of each one, and store the largest sum in maxi.
+- i — starting index of the subarray.
+- j — ending index of the subarray.
+- k — traverses the selected subarray and adds its elements.
+- sum — sum of the current subarray.
+- maxi — maximum sum found so far.
+
+Code:
+for (i = 0; i < n; i++)
+{
+    for (j = i; j < n; j++)
+    {
+        sum = 0;
+
+        for (k = i; k <= j; k++)
+            sum += arr[k];
+
+        maxi = max(sum, maxi);
+    }
+}
+
+Time Complexity: O(n^3)
+Space Complexity: (O(1)
+
