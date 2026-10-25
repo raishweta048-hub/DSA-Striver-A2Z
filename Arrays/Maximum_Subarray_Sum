@@ -25,3 +25,80 @@ for (i = 0; i < n; i++)
 Time Complexity: O(n^3)
 Space Complexity: (O(1)
 
+Better Solution:
+Instead of recalculating the sum of each subarray from scratch, we maintain a running sum.
+1. Select a starting index i.
+2. Initialize sum = 0.
+3. Move the ending index j from i to the last element.
+4. Add nums[j] to the running sum.
+5. Update maxi whenever a larger sum is found.
+6. Repeat for every starting index.
+
+Code:
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int maxi = INT_MIN;
+
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                maxi = max(maxi, sum);
+            }
+        }
+
+        return maxi;
+    }
+};
+Time Complexity: (O(n^2)
+Space Complexity: (O(1)
+
+Optimal Solution: Kadane's Algorithm
+if the running sum becomes negative, discard it before considering the next element. A negative running sum only reduces the sum of a future subarray.
+
+For every element:
+1. Add the current element to sum.
+2. Update maxi with the largest sum found so far.
+3. If sum becomes negative, reset it to zero.
+4. Continue to the next element.
+We initialize maxi to INT_MIN so that arrays containing only negative numbers are handled correctly.
+
+Code:
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum = 0;
+        int maxi = INT_MIN;
+
+        int Start = 0;
+        int ansStart = 0;
+        int ansEnd = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+
+            if (sum == 0) {
+                Start = i;
+            }
+
+            sum += nums[i];
+
+            if (sum > maxi) {
+                maxi = sum;
+                ansStart = Start;
+                ansEnd = i;
+            }
+
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+        return maxi;
+    }
+};
+Time Complexity: (O(n)
+Space Complexity: (O(1)
