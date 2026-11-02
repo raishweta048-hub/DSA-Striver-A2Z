@@ -1,1 +1,114 @@
+Problem statement:
+Given an array of integers nums, rearrange the elements into the next lexicographically greater permutation of numbers.
+If such an arrangement is not possible, rearrange the array into the lowest possible order (ascending order).
 
+Example:
+Input: nums = [1, 2, 3]
+Output: [1, 3, 2]
+
+
+Brute Force Approach : Generate All Permutations
+The basic idea is to generate all possible permutations of the given array, arrange them in lexicographical order, and find the immediate next permutation.
+
+Algorithm
+1. Generate all possible permutations of the given array.
+2. Sort all permutations in lexicographical order.
+3. Find the position of the original array.
+4. Select the permutation immediately after it.
+5. If the original array is the last permutation, select the first permutation.
+
+Code:
+
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+
+        vector<int> original = nums;
+        vector<vector<int>> perms;
+
+        sort(nums.begin(), nums.end());
+
+        do {
+            perms.push_back(nums);
+        } while(next_permutation(nums.begin(), nums.end()));
+
+        for(int i = 0; i < perms.size(); i++) {
+
+            if(perms[i] == original) {
+
+                if(i == perms.size() - 1)
+                    nums = perms[0];
+                else
+                    nums = perms[i + 1];
+
+                return;
+            }
+        }
+    }
+};
+
+Time Complexity: (O(n.n!.log(n!))
+Space Complexity: ((O)n.n!)
+
+
+Optimal Approach : Pivot, Swap and Reverse
+Observation 1: Find the longest prefix match
+Find the first element from the right satisfying:
+nums[i] < nums[i+1]
+This position is called the pivot or breakpoint.
+
+Observation 2: Find the smallest greater element
+Find the smallest element greater than the pivot from the elements to its right.
+Swap these two elements.
+
+Observation 3: Arrange the remaining suffix in ascending order
+Reverse the suffix after the pivot position to obtain the smallest possible arrangement.
+
+Algorithm
+1. Traverse the array from right to left and find the pivot.
+2. If no pivot exists, reverse the entire array and return.
+3. Traverse from right to left again and find the first element greater than the pivot.
+4. Swap the pivot and the selected element.
+5. Reverse the suffix after the pivot.
+
+Code:
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+
+        int n = nums.size();
+        int ind = -1;
+
+        // Step 1: Find the pivot
+        for(int i = n - 2; i >= 0; i--) {
+
+            if(nums[i] < nums[i + 1]) {
+                ind = i;
+                break;
+            }
+        }
+
+        // Step 2: Handle the largest permutation
+        if(ind == -1) {
+            reverse(nums.begin(), nums.end());
+            return;
+        }
+
+        // Step 3: Find the smallest greater element
+        for(int i = n - 1; i > ind; i--) {
+
+            if(nums[i] > nums[ind]) {
+                swap(nums[i], nums[ind]);
+                break;
+            }
+        }
+
+        // Step 4: Reverse the suffix
+        reverse(nums.begin() + ind + 1, nums.end());
+    }
+};
+
+Time Complexity: O(n)
+Auxiliary Space Complexity: O(1)
