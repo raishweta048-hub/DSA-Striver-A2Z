@@ -1,1 +1,49 @@
+Problem Statement: to find the length of the longest sequence of consecutive integers present in an unsorted array.
 
+1. Brute Force Approach:
+In the brute force approach, we consider every element of the array as a potential starting point of a consecutive sequence.
+Steps:
+1. Traverse the array and select each element as the starting element of a sequence.
+2. Store the selected element in a variable called current.
+3. Check whether current + 1 exists in the array using linear search.
+4. If it exists, increment current and increase the sequence length.
+5. Repeat this process until the next consecutive element is not found.
+6. Update the maximum sequence length whenever a longer sequence is found.
+7. Continue until every element has been considered.
+8. Return the maximum length.
+
+Code:
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int longestConsecutive(vector<int>& nums) {
+    int n = nums.size();
+    int maxi = 0;
+
+    for (int i = 0; i < n; i++) {
+        int current = nums[i];
+        int count = 1;
+
+        while (find(nums.begin(), nums.end(),
+                    current + 1) != nums.end()) {
+            current++;
+            count++;
+        }
+
+        maxi = max(maxi, count);
+    }
+
+    return maxi;
+}
+
+int main() {
+    vector<int> nums = {100, 4, 200, 1, 3, 2};
+
+    cout << longestConsecutive(nums);
+
+    return 0;
+}
+
+Time Complexity: O(N^3)
+Space Complexity: O(1)
